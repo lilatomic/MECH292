@@ -14,49 +14,49 @@
 Servo claw_servo;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
-  pinMode(D1, OUTPUT);
-  pinMode(D2, OUTPUT);
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  claw_servo.attach(D0);
+	pinMode(LED_BUILTIN, OUTPUT);		 // Initialize the LED_BUILTIN pin as an output
+	pinMode(D1, OUTPUT);
+	pinMode(D2, OUTPUT);
+	pinMode(D3, OUTPUT);
+	pinMode(D4, OUTPUT);
+	claw_servo.attach(D0);
 }
 
 // the loop function runs over and over again forever
 void loop() {
-  digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on (Note that LOW is the voltage level
-                                    // but actually the LED is on; this is because 
-                                    // it is acive low on the ESP-01)
-  delay(1000);                      // Wait for a second
-  digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-  delay(2000);                      // Wait for two seconds (to demonstrate the active low LED)
-  int pos;
+	digitalWrite(LED_BUILTIN, LOW);	 // Turn the LED on (Note that LOW is the voltage level
+																		// but actually the LED is on; this is because 
+																		// it is acive low on the ESP-01)
+	delay(1000);											// Wait for a second
+	digitalWrite(LED_BUILTIN, HIGH);	// Turn the LED off by making the voltage HIGH
+	delay(2000);											// Wait for two seconds (to demonstrate the active low LED)
+	int pos;
 
-  for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
-  {                                  // in steps of 1 degree 
-    claw_servo.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
-  } 
-  for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees 
-  {                                
-    claw_servo.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
-  }
-  digitalWrite(D1,HIGH);
-    delay(1000);
-  digitalWrite(D2,HIGH);
-    delay(1000); 
-  digitalWrite(D3,HIGH); 
-    delay(1000);
-  digitalWrite(D4,HIGH); 
-    delay(1000);
-  digitalWrite(D1,LOW); 
-    delay(1000);
-  digitalWrite(D2,LOW); 
-    delay(1000);
-  digitalWrite(D3,LOW); 
-    delay(1000);
-  digitalWrite(D4,LOW); 
-    delay(1000);
-  
+	for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
+	{																	// in steps of 1 degree 
+		claw_servo.write(pos);							// tell servo to go to position in variable 'pos' 
+		delay(15);											 // waits 15ms for the servo to reach the position 
+	} 
+	for(pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees 
+	{																
+		claw_servo.write(pos);							// tell servo to go to position in variable 'pos' 
+		delay(15);											 // waits 15ms for the servo to reach the position 
+	}
+	digitalWrite(D1,HIGH);
+		delay(1000);
+	digitalWrite(D2,HIGH);
+		delay(1000); 
+	digitalWrite(D3,HIGH); 
+		delay(1000);
+	digitalWrite(D4,HIGH); 
+		delay(1000);
+	digitalWrite(D1,LOW); 
+		delay(1000);
+	digitalWrite(D2,LOW); 
+		delay(1000);
+	digitalWrite(D3,LOW); 
+		delay(1000);
+	digitalWrite(D4,LOW); 
+		delay(1000);
+	
 }
