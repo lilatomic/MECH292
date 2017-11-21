@@ -52,9 +52,6 @@ void setup() {
   // Start the server
   server.begin();
   Serial.println("Server started");
-
-  // Print the IP address
-  Serial.println(WiFi.localIP());
 }
 
 void loop() {
