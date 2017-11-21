@@ -8,6 +8,7 @@
  */
 
 #include <ESP8266WiFi.h>
+#include <Servo.h> 
 
 const char* ssid = "";
 const char* password = "";
@@ -15,9 +16,14 @@ const char* password = "";
 // Create an instance of the server
 // specify the port to listen on as an argument
 WiFiServer server(80);
+WiFiClient client;
 
 int ledPin = LED_BUILTIN;
-WiFiClient client;
+Servo claw_servo;
+int leftPinA = D1;
+int leftPinB = D2;
+int rightPinA = D3;
+int rightPinB = D4;
  
 void setup() {
 	Serial.begin(115200);
