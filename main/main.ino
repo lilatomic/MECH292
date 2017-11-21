@@ -77,7 +77,20 @@ void loop() {
 		digitalWrite(ledPin, 0);
 	else if (req.indexOf("/led/1") != -1)
 		digitalWrite(ledPin, 1);
-	
+    else if (req.indexOf("/go/f") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/go/b") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/go/r") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/go/l") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/go/s") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/grip/1") != -1)
+    	digitalWrite(l, );
+    else if (req.indexOf("/grip/0") != -1)
+    	digitalWrite(l, );
 	else {
 		Serial.println("invalid request");
 		client.stop();
