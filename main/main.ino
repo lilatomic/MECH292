@@ -73,19 +73,15 @@ void loop() {
   client.flush();
   
   // Match the request
-  int val;
-  if (req.indexOf("/gpio/0") != -1)
-    val = 0;
-  else if (req.indexOf("/gpio/1") != -1)
-    val = 1;
+  if (req.indexOf("/led/0") != -1)
+    digitalWrite(ledPin, 0);
+  else if (req.indexOf("/led/1") != -1)
+    digitalWrite(ledPin, 1);
   else {
     Serial.println("invalid request");
     client.stop();
     return;
-  }
-
-  // Set GPIO2 according to the request
-  digitalWrite(ledPin, val);
+  }  
   
   client.flush();
 
