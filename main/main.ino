@@ -23,8 +23,15 @@ void setup() {
   Serial.begin(115200);
   delay(10);
 
-  // prepare GPIO2
-  pinMode(ledPin, OUTPUT);
+  // sets up pins
+  pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+  pinMode(D3, OUTPUT);
+  pinMode(D4, OUTPUT);
+  claw_servo.attach(D0);
+  
+  
   digitalWrite(ledPin, 0);
   
   // Connect to WiFi network
