@@ -120,7 +120,7 @@ void loop() {
     }
     else if (req.indexOf("/grip/1") != -1)
     {
-        for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees
+        for(int pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees
         {																	// in steps of 1 degree
             claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
             delay(15);											 // waits 15ms for the servo to reach the position
@@ -129,8 +129,8 @@ void loop() {
     }
     else if (req.indexOf("/grip/0") != -1)
     {
-        for(pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees
-    	{																
+        for(int pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees
+    	{
     		claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
     		delay(15);											 // waits 15ms for the servo to reach the position
     	}
