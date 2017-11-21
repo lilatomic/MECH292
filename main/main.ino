@@ -1,11 +1,3 @@
-/*
- *	This sketch demonstrates how to set up a simple HTTP-like server.
- *	The server will set a GPIO pin depending on the request
- *		http://server_ip/gpio/0 will set the GPIO2 low,
- *		http://server_ip/gpio/1 will set the GPIO2 high
- *	server_ip is the IP address of the ESP8266 module, will be
- *	printed to Serial when the module is connected.
- */
 
 #include <ESP8266WiFi.h>
 #include <Servo.h>
@@ -135,6 +127,28 @@ void loop() {
     		delay(15);											 // waits 15ms for the servo to reach the position
     	}
     }
+	else if (req.indexOf("/home") != -1)
+	{
+		 // Return the response 
+		client.println("HTTP/1.1 200 OK"); 
+		client.println("Content-Type: text/html"); 
+		client.println(""); //  do not forget this one 
+		client.println("<!DOCTYPE HTML>"); 
+		client.println("<html>"); 
+		client.print("Led pin is now: "); 
+		if(value == HIGH) 
+		{ 
+			client.print("On"); 
+		} 
+		else 
+		{ 
+			client.print("Off"); 
+		}
+		client.println("<br><br>");
+		client.println("Click <a href=\"/LED=ON\">here</a> turn the LED on pin 5 ON<br>"); 
+		client.println("Click <a href=\"/LED=OFF\">here</a> turn the LED on pin 5 OFF<br>"); 
+		client.println("</html>"); 
+	}
 	else {
 		Serial.println("invalid request");
 		client.stop();
