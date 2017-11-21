@@ -84,19 +84,57 @@ void loop() {
 	else if (req.indexOf("/led/1") != -1)
 		digitalWrite(ledPin, 1);
     else if (req.indexOf("/go/f") != -1)
-    	digitalWrite(l, );
+    {
+    	digitalWrite(leftPinA, 1);
+        digitalWrite(leftPinB, 0);
+        digitalWrite(rightPinA, 1);
+        digitalWrite(rightPinB, 0);
+    }
     else if (req.indexOf("/go/b") != -1)
-    	digitalWrite(l, );
+    {
+    	digitalWrite(leftPinA, 0);
+        digitalWrite(leftPinB, 1);
+        digitalWrite(rightPinA, 0);
+        digitalWrite(rightPinB, 1);
+    }
     else if (req.indexOf("/go/r") != -1)
-    	digitalWrite(l, );
+    {
+    	digitalWrite(leftPinA, 0);
+        digitalWrite(leftPinB, 1);
+        digitalWrite(rightPinA, 1);
+        digitalWrite(rightPinB, 0);
+    }
     else if (req.indexOf("/go/l") != -1)
-    	digitalWrite(l, );
+    {
+    	digitalWrite(leftPinA, 1);
+        digitalWrite(leftPinB, 0);
+        digitalWrite(rightPinA, 0);
+        digitalWrite(rightPinB, 1);
+    }
     else if (req.indexOf("/go/s") != -1)
-    	digitalWrite(l, );
+    {
+    	digitalWrite(leftPinA, 0);
+        digitalWrite(leftPinB, 0);
+        digitalWrite(rightPinA, 0);
+        digitalWrite(rightPinB, 0);
+    }
     else if (req.indexOf("/grip/1") != -1)
-    	digitalWrite(l, );
+    {
+        for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees
+        {																	// in steps of 1 degree
+            claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
+            delay(15);											 // waits 15ms for the servo to reach the position
+        }
+
+    }
     else if (req.indexOf("/grip/0") != -1)
-    	digitalWrite(l, );
+    {
+        for(pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees
+    	{																
+    		claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
+    		delay(15);											 // waits 15ms for the servo to reach the position
+    	}
+    }
 	else {
 		Serial.println("invalid request");
 		client.stop();
