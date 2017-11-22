@@ -129,25 +129,82 @@ void loop() {
     }
 	else if (req.indexOf("/home") != -1)
 	{
-		 // Return the response 
-		client.println("HTTP/1.1 200 OK"); 
-		client.println("Content-Type: text/html"); 
-		client.println(""); //  do not forget this one 
-		client.println("<!DOCTYPE HTML>"); 
-		client.println("<html>"); 
-		client.print("Led pin is now: "); 
-		if(value == HIGH) 
-		{ 
-			client.print("On"); 
-		} 
-		else 
-		{ 
-			client.print("Off"); 
-		}
-		client.println("<br><br>");
-		client.println("Click <a href=\"/LED=ON\">here</a> turn the LED on pin 5 ON<br>"); 
-		client.println("Click <a href=\"/LED=OFF\">here</a> turn the LED on pin 5 OFF<br>"); 
-		client.println("</html>"); 
+		client.println(R"(<!DOCTYPE HTML>
+<html>
+<style type="text/css">
+form,table {
+	display:inline;
+	margin:px;
+	padding:px;
+}
+</style>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==97 ? 1 : 0);
+    var checkMoz=(e.which==97 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("go/l");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==115 ? 1 : 0);
+    var checkMoz=(e.which==115 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("s");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==100 ? 1 : 0);
+    var checkMoz=(e.which==100 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("d");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==119 ? 1 : 0);
+    var checkMoz=(e.which==119 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("w");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==120 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("x");
+});
+</script>
+	
+</head>
+
+Led pin is now: On
+<br>
+<form action = "" method = "post">
+	<input type="submit" name="upvote" value="Forward" />
+</form>
+<br>
+<form action = "" method = "post">
+	<input type="submit" name="upvote" value="Left" />
+</form>
+<form action = "" method = "post">
+	<input type="submit" name="stop" value="Stop" />
+</form>
+<form action = "" method = "post">
+	<input type="submit" name="upvote" value="Right" />
+</form>
+<br>
+<form action = "" method = "post">
+	<input type="submit" name="backwards" value="Backwards" />
+</form>
+<br>
+
+<br>
+Click <a href="/LED=ON">here</a> turn the LED on pin 5 ON<br>
+</html>
+ )");
 	}
 	else {
 		Serial.println("invalid request");

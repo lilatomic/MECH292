@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-
+<html>
 <style type="text/css">
 form,table {
 	display:inline;
@@ -10,8 +10,45 @@ form,table {
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==97 ? 1 : 0);
+    var checkMoz=(e.which==97 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("go/a");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==115 ? 1 : 0);
+    var checkMoz=(e.which==115 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("s");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==100 ? 1 : 0);
+    var checkMoz=(e.which==100 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("d");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==119 ? 1 : 0);
+    var checkMoz=(e.which==119 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("w");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==120 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $("body").append("x");
+});
+</script>
+	
 </head>
-<html>
+
 Led pin is now: On
 <br>
 <form action = "" method = "post">
