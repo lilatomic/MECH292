@@ -1,21 +1,14 @@
 
 #include <ESP8266WiFi.h>
 #include <Servo.h>
-#include <WiFiClient.h> 
-#include <ESP8266WebServer.h>
 
-const char *ssid = "ESPap";
-const char *password = "thereisnospoon";
+const char* ssid = "";
+const char* password = "";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
 WiFiServer server(80);
-ESP8266WebServer server_ap(8080);
 WiFiClient client;
-
-void handleRoot() {
-  server_ap.send(200, "text/html", "<h1>You are connected</h1>");
-}
 
 int ledPin = LED_BUILTIN;
 Servo claw_servo;
@@ -38,17 +31,21 @@ void setup() {
 	
 	
 	digitalWrite(ledPin, 0);
-
-  Serial.print("Configuring access point...");
-  /* You can remove the password parameter if you want the AP to be open. */
-  WiFi.softAP(ssid, password);
-
-  IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(myIP);
-  server_ap.on("/", handleRoot);
-  server_ap.begin();
-  Serial.println("HTTP server started");
+	
+	// Connect to WiFi network
+	Serial.println();
+	Serial.println();
+	Serial.print("Connecting to ");
+	Serial.println(ssid);
+	
+	WiFi.begin(ssid, password);
+	
+	while (WiFi.status() != WL_CONNECTED) {
+		delay(500);
+		Serial.print(".");
+	}
+	Serial.println("");
+	Serial.println("WiFi connected");
 	
 	// Start the server
 	server.begin();
@@ -56,7 +53,6 @@ void setup() {
 }
 
 void loop() {
-  server_ap.handleClient();
 	// Check if a client has connected
 	WiFiClient client = server.available();
 	if (!client) {
