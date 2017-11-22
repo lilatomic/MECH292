@@ -2,13 +2,11 @@
 #include <ESP8266WiFi.h>
 #include <Servo.h>
 
-const char* ssid = "";
-const char* password = "";
+const char WiFiAPPSK[] = "sparkfun";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
 WiFiServer server(80);
-WiFiClient client;
 
 int ledPin = LED_BUILTIN;
 Servo claw_servo;
@@ -17,39 +15,50 @@ int leftPinB = D2;
 int rightPinA = D3;
 int rightPinB = D4;
  
-void setup() {
-	Serial.begin(115200);
-	delay(10);
+void setupWiFi()
+{
+  WiFi.mode(WIFI_AP);
 
-	// sets up pins
-	pinMode(LED_BUILTIN, OUTPUT);		 // Initialize the LED_BUILTIN pin as an output
-	pinMode(D1, OUTPUT);
-	pinMode(D2, OUTPUT);
-	pinMode(D3, OUTPUT);
-	pinMode(D4, OUTPUT);
-	claw_servo.attach(D0);
-	
-	
-	digitalWrite(ledPin, 0);
-	
-	// Connect to WiFi network
-	Serial.println();
-	Serial.println();
-	Serial.print("Connecting to ");
-	Serial.println(ssid);
-	
-	WiFi.begin(ssid, password);
-	
-	while (WiFi.status() != WL_CONNECTED) {
-		delay(500);
-		Serial.print(".");
-	}
-	Serial.println("");
-	Serial.println("WiFi connected");
-	
-	// Start the server
-	server.begin();
-	Serial.println("Server started");
+  // Do a little work to get a unique-ish name. Append the
+  // last two bytes of the MAC (HEX'd) to "Thing-":
+  uint8_t mac[WL_MAC_ADDR_LENGTH];
+  WiFi.softAPmacAddress(mac);
+  String macID = String(mac[WL_MAC_ADDR_LENGTH - 2], HEX) +
+                 String(mac[WL_MAC_ADDR_LENGTH - 1], HEX);
+  macID.toUpperCase();
+  String AP_NameString = "ESP8266 Thing " + macID;
+
+  char AP_NameChar[AP_NameString.length() + 1];
+  memset(AP_NameChar, 0, AP_NameString.length() + 1);
+
+  for (int i=0; i<AP_NameString.length(); i++)
+    AP_NameChar[i] = AP_NameString.charAt(i);
+
+  WiFi.softAP(AP_NameChar, WiFiAPPSK);
+}
+
+void initHardware()
+{
+  Serial.begin(115200);
+  delay(10);
+
+  // sets up pins
+  pinMode(LED_BUILTIN, OUTPUT);		 // Initialize the LED_BUILTIN pin as an output
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+  pinMode(D3, OUTPUT);
+  pinMode(D4, OUTPUT);
+  claw_servo.attach(D0);
+  
+  
+  digitalWrite(ledPin, 0);
+}
+  
+void setup()
+{
+    initHardware();
+    setupWiFi();
+    server.begin();
 }
 
 void loop() {
@@ -67,7 +76,7 @@ void loop() {
 	
 	// Read the first line of the request
 	String req = client.readStringUntil('\r');
-//	Serial.println(req);
+	Serial.println(req);
 	client.flush();
 	
 	// Match the request
