@@ -55,8 +55,6 @@ $(document).keypress(function(e){
 </script>
   
 </head>
-
-Led pin is now: On
 <br>
 <form action = "/go/f" method = "get">
   <input type="submit" value="forward" />
@@ -76,9 +74,6 @@ Led pin is now: On
   <input type="submit" value="Backwards" />
 </form>
 <br>
-
-<br>
-Click <a href="/LED=ON">here</a> turn the LED on pin 5 ON<br>
 </html>
  )";
 
