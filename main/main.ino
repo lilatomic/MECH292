@@ -1,8 +1,86 @@
 
 #include <ESP8266WiFi.h>
 #include <Servo.h>
+#include "FS.h"
 
-const char WiFiAPPSK[] = "sparkfun";
+const char WiFiAPPSK[] = "mech292";
+const char* jquery_string = "";
+const char* page = R"(<!DOCTYPE HTML>
+<html>
+<style type="text/css">
+form,table {
+ display:inline;
+  margin:px;
+  padding:px;
+}
+</style>
+<head>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==97 ? 1 : 0);
+    var checkMoz=(e.which==97 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/l");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==115 ? 1 : 0);
+    var checkMoz=(e.which==115 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/b");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==100 ? 1 : 0);
+    var checkMoz=(e.which==100 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/r");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==119 ? 1 : 0);
+    var checkMoz=(e.which==119 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/f"));
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==120 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/s");
+});
+</script>
+  
+</head>
+
+Led pin is now: On
+<br>
+<form action = "/go/f" method = "get">
+  <input type="submit" value="forward" />
+</form>
+<br>
+<form action = "/go/l" method = "post">
+  <input type="submit" value="go/l" />
+</form>
+<form action = "/go/s" method = "post">
+  <input type="submit" value="go/s" />
+</form>
+<form action = "/go/r" method = "post">
+  <input type="submit" value="go/r" />
+</form>
+<br>
+<form action = "/go/b" method = "post">
+  <input type="submit" value="Backwards" />
+</form>
+<br>
+
+<br>
+Click <a href="/LED=ON">here</a> turn the LED on pin 5 ON<br>
+</html>
+ )";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
@@ -35,6 +113,10 @@ void setupWiFi()
     AP_NameChar[i] = AP_NameString.charAt(i);
 
   WiFi.softAP(AP_NameChar, WiFiAPPSK);
+
+//  SPIFFS.begin();
+//  Dir dir =SPIFFS.openDir("/data");
+//  server.serverStatic("/jquery-3.2.1.min.js", SPIFFS, "/data/jquery-3.2.1.min.js");
 }
 
 void initHardware()
@@ -138,83 +220,12 @@ void loop() {
     }
 	else if (req.indexOf("/home") != -1)
 	{
-		client.println(R"(<!DOCTYPE HTML>
-<html>
-<style type="text/css">
-form,table {
-	display:inline;
-	margin:px;
-	padding:px;
-}
-</style>
-<head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==97 ? 1 : 0);
-    var checkMoz=(e.which==97 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $.post("go/l");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==115 ? 1 : 0);
-    var checkMoz=(e.which==115 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $("body").append("s");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==100 ? 1 : 0);
-    var checkMoz=(e.which==100 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $("body").append("d");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==119 ? 1 : 0);
-    var checkMoz=(e.which==119 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $("body").append("w");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==120 ? 1 : 0);
-    var checkMoz=(e.which==120 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $("body").append("x");
-});
-</script>
-	
-</head>
-
-Led pin is now: On
-<br>
-<form action = "" method = "post">
-	<input type="submit" name="upvote" value="Forward" />
-</form>
-<br>
-<form action = "" method = "post">
-	<input type="submit" name="upvote" value="Left" />
-</form>
-<form action = "" method = "post">
-	<input type="submit" name="stop" value="Stop" />
-</form>
-<form action = "" method = "post">
-	<input type="submit" name="upvote" value="Right" />
-</form>
-<br>
-<form action = "" method = "post">
-	<input type="submit" name="backwards" value="Backwards" />
-</form>
-<br>
-
-<br>
-Click <a href="/LED=ON">here</a> turn the LED on pin 5 ON<br>
-</html>
- )");
+		client.println(page);
 	}
+ else if (req.indexOf("/jquery") != -1)
+ {
+   client.println(jquery_string);
+ }
 	else {
 		Serial.println("invalid request");
 		client.stop();
@@ -230,6 +241,7 @@ Click <a href="/LED=ON">here</a> turn the LED on pin 5 ON<br>
 	
 
 	// Send the response to the client
+  client.println(page);
 	client.print("HTTP/1.1 200 OK\r\n");
 	delay(1);
 //	Serial.println("Client disonnected");
