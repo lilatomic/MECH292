@@ -1,20 +1,9 @@
-/*
- ESP8266 Blink by Simon Peter
- Blink the blue LED on the ESP-01 module
- This example code is in the public domain
- 
- The blue LED on the ESP-01 module is connected to GPIO1 
- (which is also the TXD pin; so we cannot use Serial.print() at the same time)
- 
- Note that this sketch uses LED_BUILTIN to find the pin with the internal LED
-*/
 #include <Servo.h> 
 
 
 Servo claw_servo;
 
 void setup() {
-	pinMode(LED_BUILTIN, OUTPUT);		 // Initialize the LED_BUILTIN pin as an output
 	pinMode(D1, OUTPUT);
 	pinMode(D2, OUTPUT);
 	pinMode(D3, OUTPUT);
@@ -22,9 +11,7 @@ void setup() {
 	claw_servo.attach(D0);
 }
 
-// the loop function runs over and over again forever
 void loop() {
-	delay(2000);											// Wait for two seconds (to demonstrate the active low LED)
 	int pos;
 
 	for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
