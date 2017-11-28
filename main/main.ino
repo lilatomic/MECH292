@@ -52,6 +52,20 @@ $(document).keypress(function(e){
     var checkMoz=(e.which==120 ? 1 : 0);
     if (checkWebkitandIE || checkMoz) $.post("/go/s");
 });
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==113 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/grip/0");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==101 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/grip/1");
+});
+</script>
 </script>
   
 </head>
