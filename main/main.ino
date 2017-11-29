@@ -71,7 +71,7 @@ $(document).keypress(function(e){
 </head>
 <br>
 <form action = "/go/f" method = "get">
-  <input type="submit" value="forward" />
+  <input type="submit" value="go/f" />
 </form>
 <br>
 <form action = "/go/l" method = "post">
@@ -85,7 +85,7 @@ $(document).keypress(function(e){
 </form>
 <br>
 <form action = "/go/b" method = "post">
-  <input type="submit" value="Backwards" />
+  <input type="submit" value="go/b" />
 </form>
 <br>
 </html>
@@ -171,11 +171,7 @@ void loop() {
 	client.flush();
 	
 	// Match the request
-	if (req.indexOf("/led/0") != -1)
-		digitalWrite(ledPin, 0);
-	else if (req.indexOf("/led/1") != -1)
-		digitalWrite(ledPin, 1);
-    else if (req.indexOf("/go/f") != -1)
+  if (req.indexOf("/go/f") != -1)
     {
     	digitalWrite(leftPinA, 1);
         digitalWrite(leftPinB, 0);
@@ -243,14 +239,8 @@ void loop() {
 	
 	client.flush();
 
-	// Prepare the response
-//	String s = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\nGPIO is now ";
-//	s += (val)?"high":"low";
-//	s += "</html>\n";
-	
-
 	// Send the response to the client
-  client.println(page);
+//  client.println(page);
 	client.print("HTTP/1.1 200 OK\r\n");
 	delay(1);
 //	Serial.println("Client disonnected");
