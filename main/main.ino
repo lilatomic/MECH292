@@ -20,6 +20,34 @@ form,table {
 
 <script>
 $(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==119 ? 1 : 0);
+    var checkMoz=(e.which==119 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/f");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==120 ? 1 : 0);
+    var checkMoz=(e.which==120 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/go/s");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==113 ? 1 : 0);
+    var checkMoz=(e.which==113 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/grip/1");
+});
+</script>
+<script>
+$(document).keypress(function(e){
+    var checkWebkitandIE=(e.which==101 ? 1 : 0);
+    var checkMoz=(e.which==101 ? 1 : 0);
+    if (checkWebkitandIE || checkMoz) $.post("/grip/0");
+});
+</script>
+<script>
+$(document).keypress(function(e){
     var checkWebkitandIE=(e.which==97 ? 1 : 0);
     var checkMoz=(e.which==97 ? 1 : 0);
     if (checkWebkitandIE || checkMoz) $.post("/go/l");
@@ -37,33 +65,6 @@ $(document).keypress(function(e){
     var checkWebkitandIE=(e.which==100 ? 1 : 0);
     var checkMoz=(e.which==100 ? 1 : 0);
     if (checkWebkitandIE || checkMoz) $.post("/go/r");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==119 ? 1 : 0);
-    var checkMoz=(e.which==119 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $.post("/go/f"));
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==120 ? 1 : 0);
-    var checkMoz=(e.which==120 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $.post("/go/s");
-});
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==113 ? 1 : 0);
-    var checkMoz=(e.which==120 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $.post("/grip/0");
-});
-</script>
-<script>
-$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==101 ? 1 : 0);
-    var checkMoz=(e.which==120 ? 1 : 0);
-    if (checkWebkitandIE || checkMoz) $.post("/grip/1");
 });
 </script>
 </script>
@@ -208,20 +209,22 @@ void loop() {
     }
     else if (req.indexOf("/grip/1") != -1)
     {
-        for(int pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees
-        {																	// in steps of 1 degree
-            claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
-            delay(15);											 // waits 15ms for the servo to reach the position
-        }
+//        for(int pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees
+//        {																	// in steps of 1 degree
+//            claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
+//            delay(15);											 // waits 15ms for the servo to reach the position
+//        }
+      claw_servo.write(180);
 
     }
     else if (req.indexOf("/grip/0") != -1)
     {
-        for(int pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees
-    	{
-    		claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
-    		delay(15);											 // waits 15ms for the servo to reach the position
-    	}
+//        for(int pos = 180; pos>=0; pos-=1)		 // goes from 180 degrees to 0 degrees
+//    	{
+//    		claw_servo.write(pos);							// tell servo to go to position in variable 'pos'
+//    		delay(15);											 // waits 15ms for the servo to reach the position
+      claw_servo.write(0);
+//    	}
     }
 	else if (req.indexOf("/home") != -1)
 	{
